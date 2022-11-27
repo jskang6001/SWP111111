@@ -27,3 +27,10 @@ class Guess:
             self.currentStatus = currentStatus
 
             return self.currentStatus == self.secretWord
+    def displayCurrent(self):
+        return self.currentStatus
+    
+    def displayGuessed(self):
+        return self.displayGuessed
+        
+        
