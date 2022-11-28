@@ -11,11 +11,14 @@ def gameMain():
     hangman = Hangman()
     maxTries = hangman.remainingLives
 
-    while guess.numTries < maxTries:
+    while hangman.remainingLives > 0:
 
         display = hangman.currentShape()
         print(display)
-        guess.display()
+        display = guess.displayCurrent()
+        print('Current:' + display)
+        display = guess.displayGuessed()
+        print('Already Used:' + display)
 
         guessedChar = input('Select a letter: ')
         if len(guessedChar) != 1:
@@ -24,20 +27,20 @@ def gameMain():
         if guessedChar in guess.guessedChars:
             print('You already guessed \"' + guessedChar + '\"')
             continue
-
-        finished = guess.guess(guessedChar)
-        if finished == True:
+        
+        success = guess.guess(guessedChar)
+        if success == False:
+            hangman.decreaseLife()
+        
+        if guess.finished():
+            print('****' + guess.displayCurrent + '****')
+            print('success')
             break
-
-    if finished == True:
-        print('Success')
-    else:
-        hangman.decreaseLife()
-        print(hangman.currentShape())
-        print('word [' + guess.secretWord + ']')
-        print('guess [' + guess.currentStatus + ']')
-        print('Fail')
-
+        else:
+            print(hangman.currentShape())
+            print('word ['+guess.secretWord + ']')
+            print('guess['+guess.displayCurrent()+']')
+            print('Fail')
 
 if __name__ == '__main__':
     gameMain()

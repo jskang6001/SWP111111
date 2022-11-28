@@ -13,24 +13,28 @@ class Guess:
 
 
     def guess(self, character):
-        #self.guessedChars |= {character}
-        #if character not in self.secretWord:
-        #    self.numTries += 1
-        #    return False
-        #else:
-         #   currentStatus = ''
-          #  for c in self.secretWord:
-           #     if c in self.guessedChars:
-            #        currentStatus += c
-             #   else:
-         #           currentStatus += '_'
-         #   self.currentStatus = currentStatus
-
-            return self.currentStatus == self.secretWord
+        self.guessedChars |= {character}
+        if character not in self.secretWord:
+            return False
+        else:
+            currentStatus = ''
+            for c in self.secretWord:
+                if c in self.guessedChars:
+                    currentStatus += c
+                else:
+                    currentStatus += '_'
+            self.currentStatus = currentStatus
+            return True
+        
     def displayCurrent(self):
         return self.currentStatus
     
     def displayGuessed(self):
-        return self.displayGuessed
+        return str(self.guessedChars)
+
+    def finished(self):
+        return self.currentStatus == self.secretWord
+
+        
         
         
